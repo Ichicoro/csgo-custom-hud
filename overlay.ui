@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>226</width>
+    <height>140</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>225</width>
+     <height>137</height>
+    </rect>
+   </property>
+   <widget class="QWidget" name="armor_widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>48</y>
+      <width>225</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <widget class="QProgressBar" name="armor_progressBar">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>225</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QProgressBar {
+    border: none;
+    border-radius: 0px;
+	text-align: center;
+	font-size: 18px;
+	text-color: transparent;
+	background-color: #2E2F30;
+}
+
+QProgressBar::chunk {
+    background-color: rgb(56, 56, 191);
+}</string>
+     </property>
+     <property name="value">
+      <number>24</number>
+     </property>
+     <property name="textVisible">
+      <bool>false</bool>
+     </property>
+     <property name="format">
+      <string>%p HP</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="maxarmor_label">
+     <property name="geometry">
+      <rect>
+       <x>112</x>
+       <y>0</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Bahnschrift Light</family>
+       <pointsize>-1</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+	color: #D0CFC5;
+	font-size: 18px;
+	padding-right: 1px;
+}</string>
+     </property>
+     <property name="text">
+      <string>100</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="currarmor_label">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Bahnschrift Light</family>
+       <pointsize>-1</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+	color: #D0CFC5;
+	font-size: 18px;
+	padding-left: 1px;
+}</string>
+     </property>
+     <property name="text">
+      <string>25</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="HP_widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>24</y>
+      <width>225</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <widget class="QProgressBar" name="HP_progressBar">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>225</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QProgressBar {
+    border: none;
+    border-radius: 0px;
+	text-align: center;
+	font-size: 18px;
+	text-color: transparent;
+	background-color: #2E2F30;
+}
+
+QProgressBar::chunk {
+    background-color: rgb(191, 56, 56);
+}</string>
+     </property>
+     <property name="value">
+      <number>24</number>
+     </property>
+     <property name="textVisible">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="maxHP_label">
+     <property name="geometry">
+      <rect>
+       <x>112</x>
+       <y>0</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Bahnschrift Light</family>
+       <pointsize>-1</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+	color: #D0CFC5;
+	font-size: 18px;
+	padding-right: 1px;
+}</string>
+     </property>
+     <property name="text">
+      <string>100</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="currHP_label">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Bahnschrift Light</family>
+       <pointsize>-1</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+	color: #D0CFC5;
+	font-size: 18px;
+	padding-left: 1px;
+}</string>
+     </property>
+     <property name="text">
+      <string>25</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="ammo_widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>225</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <widget class="QProgressBar" name="ammo_progressBar">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>225</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Bahnschrift Light</family>
+       <pointsize>-1</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QProgressBar {
+    border: none;
+    border-radius: 0px;
+	text-align: center;
+	font-size: 16px;
+	text-color: transparent;
+	background-color: #2E2F30;
+}
+
+QProgressBar::chunk {
+    background-color: rgb(255, 162, 0)
+}</string>
+     </property>
+     <property name="value">
+      <number>24</number>
+     </property>
+     <property name="textVisible">
+      <bool>true</bool>
+     </property>
+     <property name="format">
+      <string>AK-47</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="magsize_label">
+     <property name="geometry">
+      <rect>
+       <x>112</x>
+       <y>0</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Bahnschrift Light</family>
+       <pointsize>-1</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+	color: rgb(39, 39, 37);
+	font-size: 18px;
+	padding-right: 1px;
+}</string>
+     </property>
+     <property name="text">
+      <string>100</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="magammo_label">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Bahnschrift Light</family>
+       <pointsize>-1</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+	color: rgb(39, 39, 37);
+	font-size: 18px;
+	padding-left: 1px;
+}</string>
+     </property>
+     <property name="text">
+      <string>25</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="alive_t_label">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>72</y>
+      <width>113</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Bahnschrift Light</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	color: rgb(39, 39, 37);
+	background-color: rgb(255, 162, 0);
+	border: 2px solid rgb(255, 162, 0);
+}</string>
+    </property>
+    <property name="text">
+     <string>5 ALIVE</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="alive_ct_label">
+    <property name="geometry">
+     <rect>
+      <x>112</x>
+      <y>72</y>
+      <width>113</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Bahnschrift Light</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	color: rgb(39, 39, 37);
+	background-color: rgb(0, 170, 255);
+	border: 2px solid rgb(0, 170, 255);
+}</string>
+    </property>
+    <property name="text">
+     <string>5 ALIVE</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
