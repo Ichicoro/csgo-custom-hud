@@ -8,7 +8,7 @@ from gsi import payloadparser, gamestate, provider
 
 
 class GSIDaemon(QThread):
-    _signal = pyqtSignal((int, int, str, int, int))
+    _signal = pyqtSignal(gamestate.GameState)
     def run(self):
         self._server = GSIServer(('localhost', 3001), 'caccamelone', RequestHandler, data_handler=lambda data: self.handler(data))
         self._server.serve_forever()
@@ -19,24 +19,25 @@ class GSIDaemon(QThread):
         self.wait()
 
     def handler(self, data):
-        print(data.player.weapons)
-        weapon_name: str = ""
-        weapon_ammo_clip: int = 0
-        weapon_clip_size: int = 0
-        for weapon in data.player.weapons.values():
-            if weapon["state"] == "active":
-                weapon_name = weapon["name"]
-                if weapon["type"] != "Knife":
-                    weapon_ammo_clip = weapon["ammo_clip"]
-                    weapon_clip_size = weapon["ammo_clip_max"]
-
-        self._signal.emit(
-            data.player.state.health,
-            data.player.state.armor,
-            weapon_name,
-            weapon_ammo_clip,
-            weapon_clip_size
-        )
+        print(data)
+        self._signal.emit(data)
+        # weapon_name: str = ""
+        # weapon_ammo_clip: int = 0
+        # weapon_clip_size: int = 0
+        # for weapon in data.player.weapons.values():
+        #     if weapon["state"] == "active":
+        #         weapon_name = weapon["name"]
+        #         if weapon["type"] != "Knife":
+        #             weapon_ammo_clip = weapon["ammo_clip"]
+        #             weapon_clip_size = weapon["ammo_clip_max"]
+        #
+        # self._signal.emit(
+        #     data.player.state.health,
+        #     data.player.state.armor,
+        #     weapon_name,
+        #     weapon_ammo_clip,
+        #     weapon_clip_size
+        # )
 
 
 class GSIServer(HTTPServer):
