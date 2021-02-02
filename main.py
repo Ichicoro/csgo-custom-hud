@@ -1,13 +1,24 @@
-import asyncio
 import sys
-import threading
-import time
 from enum import Enum
+import yaml
 
-from PyQt5 import QtGui, QtCore, uic
+from PyQt5 import QtCore, uic
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QLabel, QProgressBar
-from gsi.gsi_server import start_server, GSIDaemon
+from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QProgressBar
+
+from gsi.gsi_server import GSIDaemon
+
+from utils import resource_path
+
+config = {}
+try:
+    with open('config.yaml') as f:
+        config = yaml.load(f, Loader=yaml.SafeLoader)
+
+    config.setdefault("opacity", 0.4)
+    config.setdefault("offset", 0)
+except FileNotFoundError:
+    print("No config.yaml found. Loading default config")
 
 
 class WeaponState(Enum):
@@ -20,7 +31,7 @@ class WeaponState(Enum):
 class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
-        uic.loadUi('overlay.ui', self)
+        uic.loadUi(resource_path("overlay.ui"), self)
         self.setWindowFlags(
             QtCore.Qt.WindowStaysOnTopHint |
             QtCore.Qt.FramelessWindowHint |
@@ -28,8 +39,8 @@ class MainWindow(QMainWindow):
         )
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground, True)
         rect = QtWidgets.qApp.desktop().availableGeometry()
-        rect.moveTop(200)
-        self.setWindowOpacity(0.4)
+        rect.moveTop(200 + config["offset"])
+        self.setWindowOpacity(config["opacity"])
         self.setGeometry(
             QtWidgets.QStyle.alignedRect(QtCore.Qt.LeftToRight, QtCore.Qt.AlignCenter, self.size(), rect)
         )
@@ -86,6 +97,7 @@ class MainWindow(QMainWindow):
         armor_progressBar.setValue(armor)
 
     def set_weapon_data(self, state: WeaponState, weapon_label: str, clip: int, clip_max: int, reserve: int):
+        self.setUpdatesEnabled(False)
         weapon_name_label = self.findChild(QLabel, "weapon_name_label")
         magammo_label = self.findChild(QLabel, "magammo_label")
         magsize_label = self.findChild(QLabel, "magsize_label")
@@ -116,7 +128,7 @@ class MainWindow(QMainWindow):
             magsize_label.setText("")
             ammo_progressBar.setValue(100)
             ammo_progressBar.setMaximum(100)
-
+        self.setUpdatesEnabled(True)
 
     def set_teams_alive(self, ct_alive: int, t_alive: int):
         alive_t_label = self.findChild(QLabel, "alive_t_label")

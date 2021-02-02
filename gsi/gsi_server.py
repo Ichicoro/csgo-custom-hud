@@ -21,23 +21,6 @@ class GSIDaemon(QThread):
     def handler(self, data):
         print(data)
         self._signal.emit(data)
-        # weapon_name: str = ""
-        # weapon_ammo_clip: int = 0
-        # weapon_clip_size: int = 0
-        # for weapon in data.player.weapons.values():
-        #     if weapon["state"] == "active":
-        #         weapon_name = weapon["name"]
-        #         if weapon["type"] != "Knife":
-        #             weapon_ammo_clip = weapon["ammo_clip"]
-        #             weapon_clip_size = weapon["ammo_clip_max"]
-        #
-        # self._signal.emit(
-        #     data.player.state.health,
-        #     data.player.state.armor,
-        #     weapon_name,
-        #     weapon_ammo_clip,
-        #     weapon_clip_size
-        # )
 
 
 class GSIServer(HTTPServer):
@@ -116,19 +99,12 @@ class RequestHandler(BaseHTTPRequestHandler):
 #     print(data.player.state.health)
 
 
-async def start_server(handler):
-    server = GSIServer(('localhost', 3001), 'caccamelone', RequestHandler, data_handler=handler)
-    print(time.asctime(), '-', 'CS:GO GSI server starting')
-
-    try:
-        await server.serve_forever()
-    except (KeyboardInterrupt, SystemExit):
-        server.server_close()
-        print(time.asctime(), '-', 'CS:GO GSI server stopped')
-
-    # async with server:
-    #
-
-
-
-
+# async def start_server(handler):
+#     server = GSIServer(('localhost', 3001), 'caccamelone', RequestHandler, data_handler=handler)
+#     print(time.asctime(), '-', 'CS:GO GSI server starting')
+#
+#     try:
+#         await server.serve_forever()
+#     except (KeyboardInterrupt, SystemExit):
+#         server.server_close()
+#         print(time.asctime(), '-', 'CS:GO GSI server stopped')
