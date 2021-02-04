@@ -4,19 +4,24 @@ import yaml
 
 from PyQt5 import QtCore, uic
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QProgressBar
+from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QProgressBar, QWidget
 
 from gsi.gsi_server import GSIDaemon
 
 from utils import resource_path
 
-config = {}
+config = {
+    "opacity": 0.4,
+    "offset": 0,
+    "port": 3001,
+    "password": "caccamelone"
+}
 try:
     with open('config.yaml') as f:
-        config = yaml.load(f, Loader=yaml.SafeLoader)
-
-    config.setdefault("opacity", 0.4)
-    config.setdefault("offset", 0)
+        data = yaml.load(f, Loader=yaml.SafeLoader)
+        data = {} if data is None else data
+        for k, v in data.items():
+            config[k] = v
 except FileNotFoundError:
     print("No config.yaml found. Loading default config")
 
@@ -37,6 +42,11 @@ class MainWindow(QMainWindow):
             QtCore.Qt.FramelessWindowHint |
             QtCore.Qt.X11BypassWindowManagerHint
         )
+
+        for widget_idx in range(self.layout().count()):
+            item = self.layout().itemAt(widget_idx)
+            QWidget(item).setAttribute(QtCore.Qt.WA_TransparentForMouseEvents)
+
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground, True)
         rect = QtWidgets.qApp.desktop().availableGeometry()
         rect.moveTop(200 + config["offset"])
@@ -44,7 +54,7 @@ class MainWindow(QMainWindow):
         self.setGeometry(
             QtWidgets.QStyle.alignedRect(QtCore.Qt.LeftToRight, QtCore.Qt.AlignCenter, self.size(), rect)
         )
-        self.thread = GSIDaemon()
+        self.thread = GSIDaemon(config["port"], config["password"])
         self.thread._signal.connect(self.update_stats)
         self.thread.start()
 
@@ -81,14 +91,14 @@ class MainWindow(QMainWindow):
 
         self.repaint()
 
-    def mousePressEvent(self, event):
-        sys.exit(0)
+    # def mousePressEvent(self, event):
+    #     sys.exit(0)
 
     def set_current_hp(self, hp: int) -> None:
         currHP_label = self.findChild(QLabel, "currHP_label")
         currHP_label.setText(f"{hp}")
-        HP_progressBar = self.findChild(QProgressBar, "HP_progressBar")
-        HP_progressBar.setValue(hp)
+        health_progressBar = self.findChild(QProgressBar, "health_progressBar")
+        health_progressBar.setValue(hp)
 
     def set_current_armor(self, armor: int, has_helmet: bool = False) -> None:
         currarmor_label = self.findChild(QLabel, "currarmor_label")

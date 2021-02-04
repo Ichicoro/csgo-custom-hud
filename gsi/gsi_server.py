@@ -9,6 +9,12 @@ from gsi import payloadparser, gamestate, provider
 
 class GSIDaemon(QThread):
     _signal = pyqtSignal(gamestate.GameState)
+
+    def __init__(self, port: int, password: str):
+        super().__init__()
+        self.port = port
+        self.password = password
+
     def run(self):
         self._server = GSIServer(('localhost', 3001), 'caccamelone', RequestHandler, data_handler=lambda data: self.handler(data))
         self._server.serve_forever()

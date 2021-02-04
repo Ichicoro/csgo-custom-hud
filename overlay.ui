@@ -344,8 +344,10 @@ QProgressBar::chunk {
      </property>
      <property name="font">
       <font>
-       <family>Bahnschrift Light</family>
+       <family>Bahnschrift SemiBold</family>
        <pointsize>-1</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
      <property name="styleSheet">
