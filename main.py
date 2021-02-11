@@ -3,7 +3,10 @@ from enum import Enum
 import yaml
 
 from PyQt5 import QtCore, uic
+from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5 import QtWidgets
+from PyQt5.QtQuick import QQuickView
+from PyQt5.QtQuickWidgets import QQuickWidget
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QProgressBar, QWidget
 
 from gsi.gsi_server import GSIDaemon
@@ -36,16 +39,15 @@ class WeaponState(Enum):
 class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
-        uic.loadUi(resource_path("overlay.ui"), self)
+        uic.loadUi(resource_path("qml.ui"), self)
+        self.qqw = self.findChild(QQuickWidget, "qmlWidget")
+        print(self.qqw)
+
         self.setWindowFlags(
             QtCore.Qt.WindowStaysOnTopHint |
             QtCore.Qt.FramelessWindowHint |
             QtCore.Qt.X11BypassWindowManagerHint
         )
-
-        for widget_idx in range(self.layout().count()):
-            item = self.layout().itemAt(widget_idx)
-            QWidget(item).setAttribute(QtCore.Qt.WA_TransparentForMouseEvents)
 
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground, True)
         rect = QtWidgets.qApp.desktop().availableGeometry()
@@ -95,23 +97,24 @@ class MainWindow(QMainWindow):
     #     sys.exit(0)
 
     def set_current_hp(self, hp: int) -> None:
-        currHP_label = self.findChild(QLabel, "currHP_label")
+        print("that worked")
+        currHP_label = self.qqw.findChild(QLabel, "currHP_label")
         currHP_label.setText(f"{hp}")
-        health_progressBar = self.findChild(QProgressBar, "health_progressBar")
+        health_progressBar = self.qqw.findChild(QProgressBar, "health_progressBar")
         health_progressBar.setValue(hp)
 
     def set_current_armor(self, armor: int, has_helmet: bool = False) -> None:
-        currarmor_label = self.findChild(QLabel, "currarmor_label")
+        currarmor_label = self.qqw.findChild(QLabel, "currarmor_label")
         currarmor_label.setText(f"{armor}{' (H)' if has_helmet else ''}")
-        armor_progressBar = self.findChild(QProgressBar, "armor_progressBar")
+        armor_progressBar = self.qqw.findChild(QProgressBar, "armor_progressBar")
         armor_progressBar.setValue(armor)
 
     def set_weapon_data(self, state: WeaponState, weapon_label: str, clip: int, clip_max: int, reserve: int):
         self.setUpdatesEnabled(False)
-        weapon_name_label = self.findChild(QLabel, "weapon_name_label")
-        magammo_label = self.findChild(QLabel, "magammo_label")
-        magsize_label = self.findChild(QLabel, "magsize_label")
-        ammo_progressBar = self.findChild(QProgressBar, "ammo_progressBar")
+        weapon_name_label = self.qqw.findChild(QLabel, "weapon_name_label")
+        magammo_label = self.qqw.findChild(QLabel, "magammo_label")
+        magsize_label = self.qqw.findChild(QLabel, "magsize_label")
+        ammo_progressBar = self.qqw.findChild(QProgressBar, "ammo_progressBar")
 
         if state == WeaponState.ACTIVE:
             weapon_label = weapon_label.replace("weapon_", "").replace("_", " ").upper()
@@ -141,8 +144,8 @@ class MainWindow(QMainWindow):
         self.setUpdatesEnabled(True)
 
     def set_teams_alive(self, ct_alive: int, t_alive: int):
-        alive_t_label = self.findChild(QLabel, "alive_t_label")
-        alive_ct_label = self.findChild(QLabel, "alive_ct_label")
+        alive_t_label = self.qqw.findChild(QLabel, "alive_t_label")
+        alive_ct_label = self.qqw.findChild(QLabel, "alive_ct_label")
 
         alive_t_label.setText(f"{t_alive} ALIVE")
         alive_ct_label.setText(f"{ct_alive} ALIVE")
